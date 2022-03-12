@@ -1,8 +1,9 @@
 import { Parser } from './parser';
 import { Command } from './parser/interface';
 import { CompoundQuery } from './queries/compound';
+import { CompoundQueryType } from './queries/compound/enum';
 
-export class ElasticSearchQueryBuilder {
+export class ElasticSearchDynamicQuery {
   private readonly command: Command = {};
 
   constructor(command: Command) {
@@ -22,7 +23,7 @@ export class ElasticSearchQueryBuilder {
    * It parses a list of statements and returns a CompoundQuery
    * @returns A CompoundQuery object.
    */
-  public compoundQuery() {
-    return new CompoundQuery(this.parseStatements());
+  public compoundQuery(type: CompoundQueryType = CompoundQueryType.BOOL) {
+    return new CompoundQuery(this.parseStatements(), type);
   }
 }

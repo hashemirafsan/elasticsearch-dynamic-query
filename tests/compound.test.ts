@@ -1,4 +1,4 @@
-import { ElasticSearchQueryBuilder } from '../lib/index';
+import { ElasticSearchDynamicQuery } from '../lib/index';
 import { DataTypeEnum } from '../lib/parser/enum';
 
 const command = {
@@ -49,7 +49,7 @@ const command = {
 }
 
 test('Redis DESTROY', async () => {
-    const builder = new ElasticSearchQueryBuilder(command);
+    const builder = new ElasticSearchDynamicQuery(command);
     const query = builder.compoundQuery().build();
     console.log(JSON.stringify(query));
 });
