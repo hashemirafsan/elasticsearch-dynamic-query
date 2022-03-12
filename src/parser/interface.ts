@@ -14,6 +14,8 @@ export interface IParserCondition extends IRangeCondition {
   $nin?: string[] | number[];
   $like?: any;
   $nlike?: any;
+  $exists?: boolean;
+  $regex?: string;
   $between?: IRangeCondition
 }
 

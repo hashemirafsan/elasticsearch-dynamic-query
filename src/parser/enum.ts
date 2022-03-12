@@ -11,4 +11,6 @@ export enum ElasticTokenEnum {
   TERMS = 'terms',
   MATCH = 'match',
   RANGE = 'range',
+  EXISTS = "exists",
+  REGEXP = "regexp",
 }

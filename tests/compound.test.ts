@@ -11,13 +11,15 @@ const command = {
     release_year: {
         type: DataTypeEnum.NUMBER,
         conditions: {
-            // $eq: 2020,
+            // $regex: "ki*"
+            // $exists: false
+            $eq: 2020,
             // $lt: 2020,
             // $gte: 2021,
-            $between: {
-                $lt: 2020,
-                $gte: 2016
-            }
+            // $between: {
+            //     $lt: 2020,
+            //     $gte: 2016
+            // }
             // $lte: 2020,
             // $gte: 2016
             // $in: [2020, 2022],
@@ -27,7 +29,7 @@ const command = {
     rating: {
         type: DataTypeEnum.TEXT,
         conditions: {
-            $eq: "TV-Y7"
+            $regex: "TV-Y7"
         }
     }
     // show_id: {

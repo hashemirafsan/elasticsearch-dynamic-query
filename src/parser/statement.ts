@@ -1,6 +1,7 @@
 import { Condition } from './condition';
 import { Between } from './condtions/Between';
 import { Eq } from './condtions/Eq';
+import { Exists } from './condtions/Exists';
 import { Gt } from './condtions/Gt';
 import { Gte } from './condtions/Gte';
 import { In } from './condtions/In';
@@ -10,6 +11,7 @@ import { Lte } from './condtions/Lte';
 import { Neq } from './condtions/Neq';
 import { NotIn } from './condtions/NotIn';
 import { NotLike } from './condtions/NotLike';
+import { Regex } from './condtions/Regex';
 import { DataTypeEnum } from './enum';
 import { IParserCondition } from './interface';
 import { ParserItem } from './type';
@@ -74,6 +76,12 @@ export class Statement {
           case '$between':
               this.setBetweenCondition();
               break;
+          case '$exists': 
+              this.setExistsCondition();
+              break;
+          case '$regex':
+              this.setRegexCondition();
+              break;
           default:
               break;
       }
@@ -137,18 +145,30 @@ export class Statement {
   }
 
   private setLteCondition() {
-    this.condtions.push(new Lte(this.getKey(), this.data.conditions.$lt));
+    this.condtions.push(new Lte(this.getKey(), this.data.conditions.$lte));
   }
 
   private setGtCondition() {
-    this.condtions.push(new Gt(this.getKey(), this.data.conditions.$lt));
+    this.condtions.push(new Gt(this.getKey(), this.data.conditions.$gt));
   }
 
   private setGteCondition() {
-    this.condtions.push(new Gte(this.getKey(), this.data.conditions.$lt));
+    this.condtions.push(new Gte(this.getKey(), this.data.conditions.$gte));
   }
 
   private setBetweenCondition() {
       this.condtions.push(new Between(this.getKey(), this.data.conditions.$between));
+  }
+
+  private setExistsCondition() {
+    this.condtions.push(new Exists(this.getKey(), this.data.conditions.$exists));
+  }
+
+  private setRegexCondition() {
+    if (this.getType() !== DataTypeEnum.TEXT) {
+        throw new Error('Regex can perform only TEXT and Keywords field!');
+    }
+    
+    this.condtions.push(new Regex(this.getKey(), this.data.conditions.$regex))
   }
 }

@@ -1,5 +1,6 @@
 import { Between } from '../../parser/condtions/Between';
 import { Eq } from '../../parser/condtions/Eq';
+import { Exists } from '../../parser/condtions/Exists';
 import { Gt } from '../../parser/condtions/Gt';
 import { Gte } from '../../parser/condtions/Gte';
 import { In } from '../../parser/condtions/In';
@@ -9,6 +10,7 @@ import { Lte } from '../../parser/condtions/Lte';
 import { Neq } from '../../parser/condtions/Neq';
 import { NotIn } from '../../parser/condtions/NotIn';
 import { NotLike } from '../../parser/condtions/NotLike';
+import { Regex } from '../../parser/condtions/Regex';
 import { Statement } from '../../parser/statement';
 import { BoolQuery } from './bool.query';
 import { CompoundQueryType } from './enum';
@@ -50,6 +52,13 @@ export class CompoundQuery {
         if (condition instanceof Gte) boolQuery.setFilterQuery(condition.getCondition());
 
         if (condition instanceof Between) boolQuery.setFilterQuery(condition.getCondition());
+
+        if (condition instanceof Exists) {
+            condition.getValue() ? boolQuery.setMustQuery(condition.getCondition()) : boolQuery.setMustNotQuery(condition.getCondition());
+        }
+
+        // TODO: this is not working
+        if (condition instanceof Regex) boolQuery.setFilterQuery(condition.getCondition());
       });
     });
 
