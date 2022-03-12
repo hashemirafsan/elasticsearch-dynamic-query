@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  es-dynamic-query:
+    container_name: es-dynamic-query
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    volumes:
+      - ../:/usr/src/app
+    depends_on:
+      - redis
+    command: npm run test
