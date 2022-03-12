@@ -9,7 +9,7 @@ export class Exists extends Condition {
   public getCondition(): object {
     return {
       [ElasticTokenEnum.EXISTS]: {
-        field: this.getKey()
+        field: this.getKey(),
       },
     };
   }

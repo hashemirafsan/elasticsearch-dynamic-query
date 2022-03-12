@@ -54,7 +54,9 @@ export class CompoundQuery {
         if (condition instanceof Between) boolQuery.setFilterQuery(condition.getCondition());
 
         if (condition instanceof Exists) {
-            condition.getValue() ? boolQuery.setMustQuery(condition.getCondition()) : boolQuery.setMustNotQuery(condition.getCondition());
+          condition.getValue()
+            ? boolQuery.setMustQuery(condition.getCondition())
+            : boolQuery.setMustNotQuery(condition.getCondition());
         }
 
         // TODO: this is not working

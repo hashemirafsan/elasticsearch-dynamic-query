@@ -43,47 +43,47 @@ export class Statement {
   private build() {
     Object.keys(this.data.conditions).forEach((key) => {
       switch (key) {
-          case '$eq':
-              this.setEqCondition()
-              break;
-          case '$neq':
-              this.setNotEqCondition();
-              break;
-          case '$like':
-              this.setLikeCondition();
-              break;
-          case '$nlike':
-              this.setNotLikeCondition()
-              break;
-          case '$in':
-              this.setInCondition();
-              break;
-          case '$nin':
-              this.setNotInCondition();
-              break;
-          case '$lt':
-              this.setLtCondition();
-              break;
-          case '$lte':
-              this.setLteCondition();
-              break;
-          case '$gt':
-              this.setGtCondition();
-              break;
-          case '$gte':
-              this.setGteCondition();
-              break;
-          case '$between':
-              this.setBetweenCondition();
-              break;
-          case '$exists': 
-              this.setExistsCondition();
-              break;
-          case '$regex':
-              this.setRegexCondition();
-              break;
-          default:
-              break;
+        case '$eq':
+          this.setEqCondition();
+          break;
+        case '$neq':
+          this.setNotEqCondition();
+          break;
+        case '$like':
+          this.setLikeCondition();
+          break;
+        case '$nlike':
+          this.setNotLikeCondition();
+          break;
+        case '$in':
+          this.setInCondition();
+          break;
+        case '$nin':
+          this.setNotInCondition();
+          break;
+        case '$lt':
+          this.setLtCondition();
+          break;
+        case '$lte':
+          this.setLteCondition();
+          break;
+        case '$gt':
+          this.setGtCondition();
+          break;
+        case '$gte':
+          this.setGteCondition();
+          break;
+        case '$between':
+          this.setBetweenCondition();
+          break;
+        case '$exists':
+          this.setExistsCondition();
+          break;
+        case '$regex':
+          this.setRegexCondition();
+          break;
+        default:
+          break;
       }
     });
   }
@@ -94,11 +94,11 @@ export class Statement {
    */
   private setEqCondition() {
     if (this.getType() === DataTypeEnum.ID || this.getType() === DataTypeEnum.NUMBER) {
-        this.condtions.push(new Eq(this.getKey(), this.data.conditions.$eq));
+      this.condtions.push(new Eq(this.getKey(), this.data.conditions.$eq));
     }
 
     if (this.getType() === DataTypeEnum.TEXT) {
-        this.setLikeCondition(this.data.conditions.$eq);
+      this.setLikeCondition(this.data.conditions.$eq);
     }
   }
 
@@ -108,11 +108,11 @@ export class Statement {
    */
   private setNotEqCondition() {
     if (this.getType() === DataTypeEnum.ID || this.getType() === DataTypeEnum.NUMBER) {
-        this.condtions.push(new Neq(this.getKey(), this.data.conditions.$neq));
+      this.condtions.push(new Neq(this.getKey(), this.data.conditions.$neq));
     }
 
     if (this.getType() === DataTypeEnum.TEXT) {
-        this.setNotLikeCondition(this.data.conditions.$neq);
+      this.setNotLikeCondition(this.data.conditions.$neq);
     }
   }
 
@@ -133,15 +133,15 @@ export class Statement {
   }
 
   private setInCondition() {
-      this.condtions.push(new In(this.getKey(), this.data.conditions.$in));
+    this.condtions.push(new In(this.getKey(), this.data.conditions.$in));
   }
 
   private setNotInCondition() {
-      this.condtions.push(new NotIn(this.getKey(), this.data.conditions.$nin));
+    this.condtions.push(new NotIn(this.getKey(), this.data.conditions.$nin));
   }
 
   private setLtCondition() {
-      this.condtions.push(new Lt(this.getKey(), this.data.conditions.$lt));
+    this.condtions.push(new Lt(this.getKey(), this.data.conditions.$lt));
   }
 
   private setLteCondition() {
@@ -157,7 +157,7 @@ export class Statement {
   }
 
   private setBetweenCondition() {
-      this.condtions.push(new Between(this.getKey(), this.data.conditions.$between));
+    this.condtions.push(new Between(this.getKey(), this.data.conditions.$between));
   }
 
   private setExistsCondition() {
@@ -166,9 +166,9 @@ export class Statement {
 
   private setRegexCondition() {
     if (this.getType() !== DataTypeEnum.TEXT) {
-        throw new Error('Regex can perform only TEXT and Keywords field!');
+      throw new Error('Regex can perform only TEXT and Keywords field!');
     }
-    
-    this.condtions.push(new Regex(this.getKey(), this.data.conditions.$regex))
+
+    this.condtions.push(new Regex(this.getKey(), this.data.conditions.$regex));
   }
 }

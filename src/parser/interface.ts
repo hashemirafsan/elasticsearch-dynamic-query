@@ -1,11 +1,10 @@
 import { ParserItem } from './type';
 
-
 export interface IRangeCondition {
-    $lt?: string | number;
-    $lte?: string | number;
-    $gt?: string | number;
-    $gte?: string | number;
+  $lt?: string | number;
+  $lte?: string | number;
+  $gt?: string | number;
+  $gte?: string | number;
 }
 export interface IParserCondition extends IRangeCondition {
   $eq?: any;
@@ -16,7 +15,7 @@ export interface IParserCondition extends IRangeCondition {
   $nlike?: any;
   $exists?: boolean;
   $regex?: string;
-  $between?: IRangeCondition
+  $between?: IRangeCondition;
 }
 
 export interface Command {

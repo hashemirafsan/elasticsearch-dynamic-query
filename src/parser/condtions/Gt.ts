@@ -11,7 +11,7 @@ export class Gt extends Condition {
       [ElasticTokenEnum.RANGE]: {
         [this.getKey()]: {
           gt: this.getValue(),
-        }
+        },
       },
     };
   }

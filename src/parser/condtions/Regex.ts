@@ -10,9 +10,9 @@ export class Regex extends Condition {
     return {
       [ElasticTokenEnum.REGEXP]: {
         [this.getKey()]: {
-            value: this.getValue(),
-            flags: "ALL",
-        }
+          value: this.getValue(),
+          flags: 'ALL',
+        },
       },
     };
   }

@@ -11,7 +11,7 @@ export class Lte extends Condition {
       [ElasticTokenEnum.RANGE]: {
         [this.getKey()]: {
           lte: this.getValue(),
-        }
+        },
       },
     };
   }

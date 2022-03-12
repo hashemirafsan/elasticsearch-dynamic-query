@@ -11,7 +11,7 @@ export class Gte extends Condition {
       [ElasticTokenEnum.RANGE]: {
         [this.getKey()]: {
           gte: this.getValue(),
-        }
+        },
       },
     };
   }

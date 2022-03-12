@@ -11,7 +11,7 @@ export class Lt extends Condition {
       [ElasticTokenEnum.RANGE]: {
         [this.getKey()]: {
           lt: this.getValue(),
-        }
+        },
       },
     };
   }
