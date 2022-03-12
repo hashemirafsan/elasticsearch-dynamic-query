@@ -29,7 +29,7 @@ export class Parser {
   }
 
   private validate(data: ParserItem): boolean {
-    return true;
+    return data.hasOwnProperty('type') && data.hasOwnProperty('conditions');
   }
 
   /**
