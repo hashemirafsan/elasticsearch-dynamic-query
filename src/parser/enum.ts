@@ -3,6 +3,7 @@ export enum DataTypeEnum {
   TEXT = 'TEXT',
   NUMBER = 'NUMBER',
   ARRAY = 'ARRAY',
+  DATETIME = 'DATETIME',
 }
 
 export enum ElasticTokenEnum {
