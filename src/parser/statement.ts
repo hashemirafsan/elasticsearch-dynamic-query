@@ -1,8 +1,12 @@
 import { Condition } from './condition';
+import { Between } from './condtions/Between';
 import { Eq } from './condtions/Eq';
+import { Gt } from './condtions/Gt';
+import { Gte } from './condtions/Gte';
 import { In } from './condtions/In';
 import { Like } from './condtions/Like';
 import { Lt } from './condtions/Lt';
+import { Lte } from './condtions/Lte';
 import { Neq } from './condtions/Neq';
 import { NotIn } from './condtions/NotIn';
 import { NotLike } from './condtions/NotLike';
@@ -57,6 +61,18 @@ export class Statement {
               break;
           case '$lt':
               this.setLtCondition();
+              break;
+          case '$lte':
+              this.setLteCondition();
+              break;
+          case '$gt':
+              this.setGtCondition();
+              break;
+          case '$gte':
+              this.setGteCondition();
+              break;
+          case '$between':
+              this.setBetweenCondition();
               break;
           default:
               break;
@@ -118,5 +134,21 @@ export class Statement {
 
   private setLtCondition() {
       this.condtions.push(new Lt(this.getKey(), this.data.conditions.$lt));
+  }
+
+  private setLteCondition() {
+    this.condtions.push(new Lte(this.getKey(), this.data.conditions.$lt));
+  }
+
+  private setGtCondition() {
+    this.condtions.push(new Gt(this.getKey(), this.data.conditions.$lt));
+  }
+
+  private setGteCondition() {
+    this.condtions.push(new Gte(this.getKey(), this.data.conditions.$lt));
+  }
+
+  private setBetweenCondition() {
+      this.condtions.push(new Between(this.getKey(), this.data.conditions.$between));
   }
 }

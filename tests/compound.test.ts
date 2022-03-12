@@ -12,7 +12,12 @@ const command = {
         type: DataTypeEnum.NUMBER,
         conditions: {
             // $eq: 2020,
-            $lt: 2020,
+            // $lt: 2020,
+            // $gte: 2021,
+            $between: {
+                $lt: 2020,
+                $gte: 2016
+            }
             // $lte: 2020,
             // $gte: 2016
             // $in: [2020, 2022],

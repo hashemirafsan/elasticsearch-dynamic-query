@@ -1,7 +1,11 @@
+import { Between } from '../../parser/condtions/Between';
 import { Eq } from '../../parser/condtions/Eq';
+import { Gt } from '../../parser/condtions/Gt';
+import { Gte } from '../../parser/condtions/Gte';
 import { In } from '../../parser/condtions/In';
 import { Like } from '../../parser/condtions/Like';
 import { Lt } from '../../parser/condtions/Lt';
+import { Lte } from '../../parser/condtions/Lte';
 import { Neq } from '../../parser/condtions/Neq';
 import { NotIn } from '../../parser/condtions/NotIn';
 import { NotLike } from '../../parser/condtions/NotLike';
@@ -38,6 +42,14 @@ export class CompoundQuery {
         if (condition instanceof NotIn) boolQuery.setMustNotQuery(condition.getCondition());
 
         if (condition instanceof Lt) boolQuery.setFilterQuery(condition.getCondition());
+
+        if (condition instanceof Lte) boolQuery.setFilterQuery(condition.getCondition());
+
+        if (condition instanceof Gt) boolQuery.setFilterQuery(condition.getCondition());
+
+        if (condition instanceof Gte) boolQuery.setFilterQuery(condition.getCondition());
+
+        if (condition instanceof Between) boolQuery.setFilterQuery(condition.getCondition());
       });
     });
 
