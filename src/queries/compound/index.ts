@@ -1,6 +1,8 @@
 import { Eq } from '../../parser/condtions/Eq';
+import { In } from '../../parser/condtions/In';
 import { Like } from '../../parser/condtions/Like';
 import { Neq } from '../../parser/condtions/Neq';
+import { NotIn } from '../../parser/condtions/NotIn';
 import { NotLike } from '../../parser/condtions/NotLike';
 import { Statement } from '../../parser/statement';
 import { BoolQuery } from './bool.query';
@@ -29,6 +31,10 @@ export class CompoundQuery {
         if (condition instanceof Neq) boolQuery.setMustNotQuery(condition.getCondition());
 
         if (condition instanceof NotLike) boolQuery.setMustNotQuery(condition.getCondition());
+
+        if (condition instanceof In) boolQuery.setMustQuery(condition.getCondition());
+
+        if (condition instanceof NotIn) boolQuery.setMustNotQuery(condition.getCondition());
       });
     });
 

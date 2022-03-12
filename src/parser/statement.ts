@@ -1,7 +1,9 @@
 import { Condition } from './condition';
 import { Eq } from './condtions/Eq';
+import { In } from './condtions/In';
 import { Like } from './condtions/Like';
 import { Neq } from './condtions/Neq';
+import { NotIn } from './condtions/NotIn';
 import { NotLike } from './condtions/NotLike';
 import { DataTypeEnum } from './enum';
 import { IParserCondition } from './interface';
@@ -45,6 +47,12 @@ export class Statement {
               break;
           case '$nlike':
               this.setNotLikeCondition()
+              break;
+          case '$in':
+              this.setInCondition();
+              break;
+          case '$nin':
+              this.setNotInCondition();
               break;
           default:
               break;
@@ -94,5 +102,13 @@ export class Statement {
    */
   private setNotLikeCondition(data?: IParserCondition) {
     this.condtions.push(new NotLike(this.getKey(), data ?? this.data.conditions.$nlike));
+  }
+
+  private setInCondition() {
+      this.condtions.push(new In(this.getKey(), this.data.conditions.$in));
+  }
+
+  private setNotInCondition() {
+      this.condtions.push(new NotIn(this.getKey(), this.data.conditions.$nin));
   }
 }
