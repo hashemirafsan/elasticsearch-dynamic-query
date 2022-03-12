@@ -1,6 +1,7 @@
 import { ElasticSearchDynamicQuery } from '../lib/index';
 import { DataTypeEnum } from '../lib/parser/enum';
-import { EmptyCondition } from '../lib/exceptions/EmptyCondition';
+import { EmptyConditionError } from '../lib/exceptions/EmptyConditionError';
+import { DataTypeError } from '../lib/exceptions/DataTypeError';
 import { faker } from '@faker-js/faker';
 
 test('$eq (TEXT) Conditional Operator', async () => {
@@ -116,7 +117,7 @@ test('$in (TEXT) Conditional Operator', async () => {
 
     const command = {
         casts: {
-            type: DataTypeEnum.TEXT,
+            type: DataTypeEnum.ARRAY,
             conditions: {
                 $in: casts
             }
@@ -143,7 +144,7 @@ test('$in (NUMBER) Conditional Operator', async () => {
 
     const command = {
         release_year: {
-            type: DataTypeEnum.NUMBER,
+            type: DataTypeEnum.ARRAY,
             conditions: {
                 $in: releaseYears
             }
@@ -170,7 +171,7 @@ test('$nin (TEXT) Conditional Operator', async () => {
 
     const command = {
         casts: {
-            type: DataTypeEnum.TEXT,
+            type: DataTypeEnum.ARRAY,
             conditions: {
                 $nin: casts
             }
@@ -197,7 +198,7 @@ test('$nin (NUMBER) Conditional Operator', async () => {
 
     const command = {
         release_year: {
-            type: DataTypeEnum.NUMBER,
+            type: DataTypeEnum.ARRAY,
             conditions: {
                 $nin: releaseYears
             }
@@ -602,27 +603,45 @@ test('$exists Not Field Conditional Operator', async () => {
     });
 });
 
-test('Empty Condition', async () => {
-    const releaseYear = 2020;
+test('Data Type Error (Array)', async () => {
+    const query = () => {
+        const releaseYears = [2021, 2025];
 
-    const command = {
-        title: {
-            type: DataTypeEnum.TEXT,
-            conditions: {}
-        },
-        release_year: {
-            type: DataTypeEnum.NUMBER,
-            conditions: {
-                $eq: releaseYear
+        const command = {
+            release_year: {
+                type: DataTypeEnum.TEXT,
+                conditions: {
+                    $in: releaseYears
+                }
             }
         }
-    }
 
+        const builder = new ElasticSearchDynamicQuery(command);
+        return builder.compoundQuery().build()
+    };
+    expect(query).toThrow(DataTypeError);
+});
+
+test('Empty Condition Error', async () => {
     const query = () => {
+        const releaseYear = 2020;
+
+        const command = {
+            title: {
+                type: DataTypeEnum.TEXT,
+                conditions: {}
+            },
+            release_year: {
+                type: DataTypeEnum.NUMBER,
+                conditions: {
+                    $eq: releaseYear
+                }
+            }
+        }
         const builder = new ElasticSearchDynamicQuery(command);
         return builder.compoundQuery().build()
     };
 
-    expect(query).toThrow(EmptyCondition)
+    expect(query).toThrow(EmptyConditionError)
 });
 

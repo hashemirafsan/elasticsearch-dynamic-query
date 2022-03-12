@@ -1,4 +1,4 @@
-export class UnknownCondition extends Error {
+export class UnknownConditionError extends Error {
     constructor(msg: string) {
         super(msg);
     }

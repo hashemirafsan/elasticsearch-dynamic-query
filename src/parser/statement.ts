@@ -1,5 +1,6 @@
-import { EmptyCondition } from '../exceptions/EmptyCondition';
-import { UnknownCondition } from '../exceptions/UnknownCondition';
+import { DataTypeError } from '../exceptions/DataTypeError';
+import { EmptyConditionError } from '../exceptions/EmptyConditionError';
+import { UnknownConditionError } from '../exceptions/UnknownConditionError';
 import { Condition } from './condition';
 import { Between, Eq, Exists, Gt, Gte, In, Like, Lt, Lte, Neq, NotIn, NotLike, Regex } from './condtions/_index';
 import { DataTypeEnum } from './enum';
@@ -48,7 +49,7 @@ export class Statement {
   private build() {
     const conditionKVs = Object.keys(this.data.conditions);
     if (! conditionKVs.length) {
-        throw new EmptyCondition(`${this.getKey()} has no valid conditions!`)
+        throw new EmptyConditionError(`${this.getKey()} has no valid conditions!`)
     }
 
     conditionKVs.forEach((conditionKey) => {
@@ -93,7 +94,7 @@ export class Statement {
           this.setRegexCondition();
           break;
         default:
-          throw new UnknownCondition(`${conditionKey} is not valid conditional operator under ${this.getKey()}!`);
+          throw new UnknownConditionError(`${conditionKey} is not valid conditional operator under ${this.getKey()}!`);
       }
     });
   }
@@ -146,6 +147,9 @@ export class Statement {
    * It adds a new condition to the conditions array.
    */
   private setInCondition() {
+    if (this.getType() !== DataTypeEnum.ARRAY || ! Array.isArray(this.data.conditions.$in)) {
+        throw new DataTypeError(`field:${this.getKey()} data type should by array!`)
+    }
     this.condtions.push(new In(this.getKey(), this.data.conditions.$in));
   }
 

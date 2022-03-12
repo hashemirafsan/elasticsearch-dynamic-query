@@ -1,4 +1,4 @@
-export class EmptyCondition extends Error {
+export class DataTypeError extends Error {
     constructor(msg: string) {
         super(msg);
     }
