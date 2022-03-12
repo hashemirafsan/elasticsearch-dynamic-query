@@ -68,8 +68,8 @@ export class CompoundQuery {
     });
 
     return {
-        bool: boolQuery.getQuery()
-    }
+      bool: boolQuery.getQuery(),
+    };
   }
 
   /**
