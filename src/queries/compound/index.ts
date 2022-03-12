@@ -1,16 +1,4 @@
-import { Between } from '../../parser/condtions/Between';
-import { Eq } from '../../parser/condtions/Eq';
-import { Exists } from '../../parser/condtions/Exists';
-import { Gt } from '../../parser/condtions/Gt';
-import { Gte } from '../../parser/condtions/Gte';
-import { In } from '../../parser/condtions/In';
-import { Like } from '../../parser/condtions/Like';
-import { Lt } from '../../parser/condtions/Lt';
-import { Lte } from '../../parser/condtions/Lte';
-import { Neq } from '../../parser/condtions/Neq';
-import { NotIn } from '../../parser/condtions/NotIn';
-import { NotLike } from '../../parser/condtions/NotLike';
-import { Regex } from '../../parser/condtions/Regex';
+import { Between, Eq, Exists, Gt, Gte, In, Like, Lt, Lte, Neq, NotIn, NotLike, Regex } from '../../parser/condtions/_index';
 import { Statement } from '../../parser/statement';
 import { BoolQuery } from './bool.query';
 import { CompoundQueryType } from './enum';

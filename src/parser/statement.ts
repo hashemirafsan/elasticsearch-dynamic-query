@@ -1,17 +1,5 @@
 import { Condition } from './condition';
-import { Between } from './condtions/Between';
-import { Eq } from './condtions/Eq';
-import { Exists } from './condtions/Exists';
-import { Gt } from './condtions/Gt';
-import { Gte } from './condtions/Gte';
-import { In } from './condtions/In';
-import { Like } from './condtions/Like';
-import { Lt } from './condtions/Lt';
-import { Lte } from './condtions/Lte';
-import { Neq } from './condtions/Neq';
-import { NotIn } from './condtions/NotIn';
-import { NotLike } from './condtions/NotLike';
-import { Regex } from './condtions/Regex';
+import { Between, Eq, Exists, Gt, Gte, In, Like, Lt, Lte, Neq, NotIn, NotLike, Regex } from './condtions/_index';
 import { DataTypeEnum } from './enum';
 import { IParserCondition } from './interface';
 import { ParserItem } from './type';
