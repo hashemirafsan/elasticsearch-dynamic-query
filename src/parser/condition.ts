@@ -9,12 +9,21 @@ export abstract class Condition {
     this.value = value;
   }
 
+  /* This is a method that is abstract and returns an object. */
   abstract getCondition(): object;
 
+  /**
+   * Return the key of the current node
+   * @returns The key of the object.
+   */
   public getKey() {
     return this.key;
   }
 
+  /**
+   * Return the value of the variable
+   * @returns The value of the question.
+   */
   public getValue() {
     return this.value;
   }

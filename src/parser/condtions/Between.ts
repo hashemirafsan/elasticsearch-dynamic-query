@@ -18,6 +18,9 @@ export class Between extends Condition {
     this.setCondition();
   }
 
+  /**
+   * It sets the condition for the filter.
+   */
   private setCondition() {
     const value = this.getValue();
 
@@ -38,6 +41,10 @@ export class Between extends Condition {
     }
   }
 
+  /**
+   * It returns the condition object for the range query.
+   * @returns The condition object.
+   */
   public getCondition(): object {
     return {
       [ElasticTokenEnum.RANGE]: {

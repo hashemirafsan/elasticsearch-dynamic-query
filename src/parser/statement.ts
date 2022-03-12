@@ -28,18 +28,33 @@ export class Statement {
     this.build();
   }
 
+  /**
+   * Get the key of the current node
+   * @returns The key of the object.
+   */
   public getKey(): string {
     return this.key;
   }
 
+  /**
+   * Get the type of the data
+   * @returns The type of the question.
+   */
   public getType(): DataTypeEnum {
     return this.data.type;
   }
 
+  /**
+   * Get the conditions of the current state
+   * @returns The getConditions method returns the condtions array.
+   */
   public getConditions() {
     return this.condtions;
   }
 
+  /**
+   * For each key in the conditions object, check the key and call the appropriate function
+   */
   private build() {
     Object.keys(this.data.conditions).forEach((key) => {
       switch (key) {
@@ -132,38 +147,66 @@ export class Statement {
     this.condtions.push(new NotLike(this.getKey(), data ?? this.data.conditions.$nlike));
   }
 
+  /**
+   * It adds a new condition to the conditions array.
+   */
   private setInCondition() {
     this.condtions.push(new In(this.getKey(), this.data.conditions.$in));
   }
 
+  /**
+   * It adds a NotIn condition to the conditions array.
+   */
   private setNotInCondition() {
     this.condtions.push(new NotIn(this.getKey(), this.data.conditions.$nin));
   }
 
+  /**
+   * It sets the  condition.
+   */
   private setLtCondition() {
     this.condtions.push(new Lt(this.getKey(), this.data.conditions.$lt));
   }
 
+  /**
+   * It adds a new condition to the list of conditions.
+   */
   private setLteCondition() {
     this.condtions.push(new Lte(this.getKey(), this.data.conditions.$lte));
   }
 
+  /**
+   * It adds a greater than condition to the list of conditions.
+   */
   private setGtCondition() {
     this.condtions.push(new Gt(this.getKey(), this.data.conditions.$gt));
   }
 
+  /**
+   * It adds a greater than or equal to condition to the list of conditions.
+   */
   private setGteCondition() {
     this.condtions.push(new Gte(this.getKey(), this.data.conditions.$gte));
   }
 
+  /**
+   * It adds a Between condition to the conditions array.
+   */
   private setBetweenCondition() {
     this.condtions.push(new Between(this.getKey(), this.data.conditions.$between));
   }
 
+  /**
+   * It sets the exists condition.
+   */
   private setExistsCondition() {
     this.condtions.push(new Exists(this.getKey(), this.data.conditions.$exists));
   }
 
+  /**
+   * If the field is not a text field, throw an error. Otherwise, add a new Regex condition to the
+   * conditions array
+   */
   private setRegexCondition() {
     if (this.getType() !== DataTypeEnum.TEXT) {
       throw new Error('Regex can perform only TEXT and Keywords field!');

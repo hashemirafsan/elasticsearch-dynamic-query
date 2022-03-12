@@ -6,6 +6,10 @@ export class Lt extends Condition {
     super(key, value);
   }
 
+  /**
+   * It returns a condition object that can be used in a query.
+   * @returns The condition object.
+   */
   public getCondition(): object {
     return {
       [ElasticTokenEnum.RANGE]: {

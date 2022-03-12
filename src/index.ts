@@ -9,11 +9,19 @@ export class ElasticSearchQueryBuilder {
     this.command = command;
   }
 
+  /**
+   * It takes a string and returns a list of statements
+   * @returns The result of the parseStatements method.
+   */
   private parseStatements() {
     const parser = new Parser(this.command);
     return parser.parse();
   }
 
+  /**
+   * It parses a list of statements and returns a CompoundQuery
+   * @returns A CompoundQuery object.
+   */
   public compoundQuery() {
     return new CompoundQuery(this.parseStatements());
   }

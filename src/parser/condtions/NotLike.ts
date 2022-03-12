@@ -6,6 +6,10 @@ export class NotLike extends Condition {
     super(key, value);
   }
 
+  /**
+   * It returns an object that represents the condition that will be used in the query.
+   * @returns The condition object.
+   */
   public getCondition(): object {
     return {
       [ElasticTokenEnum.MATCH]: {

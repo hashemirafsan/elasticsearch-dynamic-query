@@ -25,6 +25,10 @@ export class CompoundQuery {
     this.type = type;
   }
 
+  /**
+   * It builds a query for Elasticsearch.
+   * @returns The query that will be used to search the index.
+   */
   private boolBuildQuery(): IBoolQuery {
     const boolQuery = new BoolQuery();
 
@@ -67,6 +71,10 @@ export class CompoundQuery {
     return boolQuery.getQuery();
   }
 
+  /**
+   * It builds a query for the bool query type.
+   * @returns A boolean query.
+   */
   public build(): IBoolQuery | null {
     switch (this.type) {
       case CompoundQueryType.BOOL:

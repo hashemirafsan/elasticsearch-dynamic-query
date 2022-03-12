@@ -6,6 +6,10 @@ export class Exists extends Condition {
     super(key, value);
   }
 
+  /**
+   * It returns an object that represents the condition that the field exists.
+   * @returns The condition object.
+   */
   public getCondition(): object {
     return {
       [ElasticTokenEnum.EXISTS]: {
