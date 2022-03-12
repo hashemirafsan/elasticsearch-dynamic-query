@@ -82,11 +82,11 @@ Initialize Elasticsearch Dynamic Query Builder:
 const builder = new ElasticSearchDynamicQuery(command);
 ```
 #### List of Query
-- [Compound Query](#setkey-value-ttl--null)
+- [Compound Query](#compound-query)
 
 ##### Compound Query
 Compound queries wrap other compound or leaf queries, either to combine their results and scores, to change their behaviour, or to switch from query to filter context. Currently this package support these query under Compound Query:
-- [Bool Query]()
+- [Bool Query](#bool-query)
 
 ##### Bool Query:
 The default query for combining multiple leaf or compound query clauses, as `must`, `should`, `must_not`, or `filter` clauses. The must and should clauses have their scores combined — the more matching clauses, the better — while the must_not and filter clauses are executed in filter context. Below added example how to use Bool Query:
