@@ -2,6 +2,7 @@ import { Condition } from './condition';
 import { Eq } from './condtions/Eq';
 import { In } from './condtions/In';
 import { Like } from './condtions/Like';
+import { Lt } from './condtions/Lt';
 import { Neq } from './condtions/Neq';
 import { NotIn } from './condtions/NotIn';
 import { NotLike } from './condtions/NotLike';
@@ -53,6 +54,9 @@ export class Statement {
               break;
           case '$nin':
               this.setNotInCondition();
+              break;
+          case '$lt':
+              this.setLtCondition();
               break;
           default:
               break;
@@ -110,5 +114,9 @@ export class Statement {
 
   private setNotInCondition() {
       this.condtions.push(new NotIn(this.getKey(), this.data.conditions.$nin));
+  }
+
+  private setLtCondition() {
+      this.condtions.push(new Lt(this.getKey(), this.data.conditions.$lt));
   }
 }

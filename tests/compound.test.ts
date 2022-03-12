@@ -12,11 +12,11 @@ const command = {
         type: DataTypeEnum.NUMBER,
         conditions: {
             // $eq: 2020,
-            // $lt: 2020,
+            $lt: 2020,
             // $lte: 2020,
             // $gte: 2016
             // $in: [2020, 2022],
-            $nin: [2021, 2022]
+            // $nin: [2021, 2022]
         }
     },
     rating: {
