@@ -14,7 +14,6 @@ import { Regex } from '../../parser/condtions/Regex';
 import { Statement } from '../../parser/statement';
 import { BoolQuery } from './bool.query';
 import { CompoundQueryType } from './enum';
-import { IBoolQuery } from './interface';
 
 export class CompoundQuery {
   private statements: Statement[] = [];
@@ -29,7 +28,7 @@ export class CompoundQuery {
    * It builds a query for Elasticsearch.
    * @returns The query that will be used to search the index.
    */
-  private boolBuildQuery(): IBoolQuery {
+  private boolBuildQuery() {
     const boolQuery = new BoolQuery();
 
     this.statements.forEach((statement) => {
@@ -68,14 +67,16 @@ export class CompoundQuery {
       });
     });
 
-    return boolQuery.getQuery();
+    return {
+        bool: boolQuery.getQuery()
+    }
   }
 
   /**
    * It builds a query for the bool query type.
    * @returns A boolean query.
    */
-  public build(): IBoolQuery | null {
+  public build() {
     switch (this.type) {
       case CompoundQueryType.BOOL:
         return this.boolBuildQuery();
