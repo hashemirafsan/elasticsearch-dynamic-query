@@ -1,3 +1,5 @@
+import { EmptyCondition } from '../exceptions/EmptyCondition';
+import { UnknownCondition } from '../exceptions/UnknownCondition';
 import { Condition } from './condition';
 import { Between, Eq, Exists, Gt, Gte, In, Like, Lt, Lte, Neq, NotIn, NotLike, Regex } from './condtions/_index';
 import { DataTypeEnum } from './enum';
@@ -44,8 +46,13 @@ export class Statement {
    * For each key in the conditions object, check the key and call the appropriate function
    */
   private build() {
-    Object.keys(this.data.conditions).forEach((key) => {
-      switch (key) {
+    const conditionKVs = Object.keys(this.data.conditions);
+    if (! conditionKVs.length) {
+        throw new EmptyCondition(`${this.getKey()} has no valid conditions!`)
+    }
+
+    conditionKVs.forEach((conditionKey) => {
+      switch (conditionKey) {
         case '$eq':
           this.setEqCondition();
           break;
@@ -86,7 +93,7 @@ export class Statement {
           this.setRegexCondition();
           break;
         default:
-          break;
+          throw new UnknownCondition(`${conditionKey} is not valid conditional operator under ${this.getKey()}!`);
       }
     });
   }

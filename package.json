@@ -17,10 +17,10 @@
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags"
   },
-
   "author": "Hashemi Rafsan",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^6.0.0-beta.0",
     "@types/jest": "^27.4.0",
     "jest": "^27.4.7",
     "prettier": "^2.5.1",
@@ -36,5 +36,10 @@
     "type": "git",
     "url": "git+https://github.com/hashemirafsan/elasticsearch-dynamic-query.git"
   },
-  "keywords": ["elasticsearch", "dynamic-query", "query-builder", "node-js"]
+  "keywords": [
+    "elasticsearch",
+    "dynamic-query",
+    "query-builder",
+    "node-js"
+  ]
 }
