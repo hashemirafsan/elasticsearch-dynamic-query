@@ -7,8 +7,7 @@ export interface IRangeCondition {
   $gte?: string | number;
 }
 
-/* It's a type definition for parser condition. */
-export interface IParserCondition extends IRangeCondition {
+export interface IConditionalOperator {
   $eq?: any;
   $neq?: any;
   $in?: string[] | number[];
@@ -20,11 +19,15 @@ export interface IParserCondition extends IRangeCondition {
   $between?: IRangeCondition;
 }
 
+/* It's a type definition for parser condition. */
+export interface IParserCondition extends IRangeCondition, IConditionalOperator {
+  $or?: IConditionalOperator & IRangeCondition;
+}
+
 /* It's a type definition for a parser item. */
 export interface IParserItem {
   type: DataTypeEnum;
   conditions: IParserCondition;
-  $or?: boolean;
 }
 
 /* It's a type definition for a command. */

@@ -652,16 +652,18 @@ test('$or Conditional Operator', async () => {
     const command = {
         title: {
             type: DataTypeEnum.TEXT,
-            $or: true,
             conditions: {
-                $eq: title
+                $or: {
+                    $eq: title
+                }
             }
         },
         release_year: {
             type: DataTypeEnum.NUMBER,
-            $or: true,
             conditions: {
-                $eq: releaseYear
+                $or: {
+                    $eq: releaseYear
+                }
             }
         }
     }
@@ -699,9 +701,10 @@ test('$or (Partial) Conditional Operator', async () => {
         },
         release_year: {
             type: DataTypeEnum.NUMBER,
-            $or: true,
             conditions: {
-                $eq: releaseYear
+                $or: {
+                    $eq: releaseYear
+                }
             }
         }
     }

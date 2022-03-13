@@ -21,7 +21,8 @@ Before build your query you need to develop your logical command based on your r
 ```typescript
 const command = {
     fieldName: {
-        type: T // ID, TEXT, NUMBER, ARRAY, DATETIME,
+        type: DataTypeEnum, // ID, TEXT, NUMBER, ARRAY, DATETIME,
+        $or: boolean, // optional
         conditions: {
             $eq?: any;
             $neq?: any;
