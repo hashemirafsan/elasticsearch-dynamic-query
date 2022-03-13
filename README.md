@@ -22,7 +22,6 @@ Before build your query you need to develop your logical command based on your r
 const command = {
     fieldName: {
         type: DataTypeEnum, // ID, TEXT, NUMBER, ARRAY, DATETIME,
-        $or: boolean, // optional
         conditions: {
             $eq?: any;
             $neq?: any;
@@ -36,11 +35,14 @@ const command = {
             $gte?: string | number;
             $exists?: boolean;
             $regex?: string;
-            $between: {
+            $between?: {
                 $lt?: string | number;
                 $lte?: string | number;
                 $gt?: string | number;
                 $gte?: string | number;
+            }
+            $or?: {
+              // Without $or, all conditional operator available under $or
             }
         }
     }
@@ -77,6 +79,7 @@ This conditional operator will be accept as `conditions` value in your field.
 | $exists  | Exists field or not |
 | $regex   | Supported regular expression |
 | $between | Is between |
+| $or      | Or expression |
 
 Initialize Elasticsearch Dynamic Query Builder:
 ```typescript
