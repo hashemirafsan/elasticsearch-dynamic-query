@@ -645,3 +645,85 @@ test('Empty Condition Error', async () => {
     expect(query).toThrow(EmptyConditionError)
 });
 
+test('$or Conditional Operator', async () => {
+    const title = faker.lorem.word(2);
+    const releaseYear = 2020;
+
+    const command = {
+        title: {
+            type: DataTypeEnum.TEXT,
+            $or: true,
+            conditions: {
+                $eq: title
+            }
+        },
+        release_year: {
+            type: DataTypeEnum.NUMBER,
+            $or: true,
+            conditions: {
+                $eq: releaseYear
+            }
+        }
+    }
+
+    const builder = new ElasticSearchDynamicQuery(command);
+    const query = builder.compoundQuery().build();
+    expect(query).toStrictEqual({
+        bool: {
+            should: [
+                {
+                    match: {
+                        title: title
+                    }
+                },
+                {
+                    term: {
+                        release_year: releaseYear
+                    }
+                }
+            ]
+        }
+    });
+});
+
+test('$or (Partial) Conditional Operator', async () => {
+    const title = faker.lorem.word(2);
+    const releaseYear = 2020;
+
+    const command = {
+        title: {
+            type: DataTypeEnum.TEXT,
+            conditions: {
+                $eq: title
+            }
+        },
+        release_year: {
+            type: DataTypeEnum.NUMBER,
+            $or: true,
+            conditions: {
+                $eq: releaseYear
+            }
+        }
+    }
+
+    const builder = new ElasticSearchDynamicQuery(command);
+    const query = builder.compoundQuery().build();
+    expect(query).toStrictEqual({
+        bool: {
+            must: [
+                {
+                    match: {
+                        title: title
+                    }
+                }
+            ],
+            should: [
+                {
+                    term: {
+                        release_year: releaseYear
+                    }
+                }
+            ]
+        }
+    });
+});

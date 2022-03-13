@@ -4,15 +4,14 @@ import { UnknownConditionError } from '../exceptions/UnknownConditionError';
 import { Condition } from './condition';
 import { Between, Eq, Exists, Gt, Gte, In, Like, Lt, Lte, Neq, NotIn, NotLike, Regex } from './condtions/_index';
 import { DataTypeEnum } from './enum';
-import { IParserCondition } from './interface';
-import { ParserItem } from './type';
+import { IParserCondition, IParserItem } from './interface';
 
 export class Statement {
   private key: string;
-  private data: ParserItem;
+  private data: IParserItem;
   private condtions: Condition[] = [];
 
-  constructor(key: string, data: ParserItem) {
+  constructor(key: string, data: IParserItem) {
     this.key = key;
     this.data = data;
 
@@ -41,6 +40,10 @@ export class Statement {
    */
   public getConditions() {
     return this.condtions;
+  }
+
+  public isOr(): boolean {
+    return this.data.$or ?? false;
   }
 
   /**

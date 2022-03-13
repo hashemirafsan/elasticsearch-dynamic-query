@@ -4,7 +4,7 @@ import { CompoundQuery } from './queries/compound';
 import { CompoundQueryType } from './queries/compound/enum';
 
 export class ElasticSearchDynamicQuery {
-  private readonly command: Command = {};
+  private readonly command: Command;
 
   constructor(command: Command) {
     this.command = command;
@@ -16,7 +16,8 @@ export class ElasticSearchDynamicQuery {
    */
   private parseStatements() {
     const parser = new Parser(this.command);
-    return parser.parse();
+    parser.parse();
+    return parser.getStatements();
   }
 
   /**

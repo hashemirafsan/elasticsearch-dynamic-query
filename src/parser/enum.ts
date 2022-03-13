@@ -1,3 +1,4 @@
+/* A TypeScript enum. */
 export enum DataTypeEnum {
   ID = 'ID',
   TEXT = 'TEXT',
@@ -6,6 +7,7 @@ export enum DataTypeEnum {
   DATETIME = 'DATETIME',
 }
 
+/* A TypeScript enum. */
 export enum ElasticTokenEnum {
   TERM = 'term',
   TERMS = 'terms',

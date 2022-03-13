@@ -22,6 +22,11 @@ export class CompoundQuery {
     this.statements.forEach((statement) => {
       const conditions = statement.getConditions();
       conditions.forEach((condition) => {
+        if (statement.isOr()) {
+            boolQuery.setShouldQuery(condition.getCondition());
+            return;
+        }
+
         if (condition instanceof Eq) boolQuery.setMustQuery(condition.getCondition());
 
         if (condition instanceof Like) boolQuery.setMustQuery(condition.getCondition());

@@ -1,34 +1,41 @@
-import { Command } from './interface';
+import { Command, IParserItem } from './interface';
 import { Statement } from './statement';
-import { ParserItem } from './type';
 
 export class Parser {
   private command: Command = {};
+  private statements: Statement[] = [];
 
   constructor(command: Command) {
     this.command = command;
   }
 
   /**
-   * It takes the command object and parses it into a list of statements
-   * @param {object} [root] - The root object that the command is being parsed under.
-   * @returns An array of Statement objects.
+   * Get the statements in this block
+   * @returns The array of statements.
    */
-  public parse(root?: object): Statement[] {
-    const statements: Statement[] = [];
+  public getStatements(): Statement[] {
+      return this.statements;
+  }
 
+  /**
+   * It parses the command object and creates a Statement object for each command.
+   */
+  public parse() {
     Object.keys(this.command).forEach((key: string) => {
-      if (root && this.isReservedKey(key)) throw new Error('Reserved key is used under conditions!');
+      if (this.isReservedKey(key)) throw new Error('Reserved key is used as command!');
 
       if (!this.validate(this.command[key])) throw new Error('Command Item is not valid!');
 
-      statements.push(new Statement(key, this.command[key]));
+      this.statements.push(new Statement(key, this.command[key]));
     });
-
-    return statements;
   }
 
-  private validate(data: ParserItem): boolean {
+  /**
+   * It checks if the data object has the type and conditions properties.
+   * @param {IParserItem} data - The data to be validated.
+   * @returns A boolean value.
+   */
+  private validate(data: IParserItem): boolean {
     return data.hasOwnProperty('type') && data.hasOwnProperty('conditions');
   }
 
