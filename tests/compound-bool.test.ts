@@ -691,6 +691,7 @@ test('$or Conditional Operator', async () => {
 test('$or (Partial) Conditional Operator', async () => {
     const title = faker.lorem.word(2);
     const releaseYear = 2020;
+    const launchYears = [2019];
 
     const command = {
         title: {
@@ -703,7 +704,15 @@ test('$or (Partial) Conditional Operator', async () => {
             type: DataTypeEnum.NUMBER,
             conditions: {
                 $or: {
-                    $eq: releaseYear
+                    $eq: releaseYear,
+                }
+            }
+        },
+        launch_year: {
+            type: DataTypeEnum.ARRAY,
+            conditions: {
+                $or: {
+                    $in: launchYears
                 }
             }
         }
@@ -724,6 +733,11 @@ test('$or (Partial) Conditional Operator', async () => {
                 {
                     term: {
                         release_year: releaseYear
+                    }
+                },
+                {
+                    terms: {
+                        launch_year: launchYears
                     }
                 }
             ]

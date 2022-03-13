@@ -323,14 +323,14 @@ export class Statement {
       }
 
       if (conditionKey === '$in') {
-        if (this.getType() !== DataTypeEnum.ARRAY || ! Array.isArray(this.data.conditions.$in)) {
+        if (this.getType() !== DataTypeEnum.ARRAY || ! Array.isArray(this.data.conditions.$or?.$in)) {
             throw new DataTypeError(`field:${this.getKey()} data type should by array!`)
         }
         condition = this.getInCondition(this.data.conditions.$or?.$in)
       }
 
       if (conditionKey === '$nin') {
-        if (this.getType() !== DataTypeEnum.ARRAY || ! Array.isArray(this.data.conditions.$in)) {
+        if (this.getType() !== DataTypeEnum.ARRAY || ! Array.isArray(this.data.conditions.$or?.$in)) {
             throw new DataTypeError(`field:${this.getKey()} data type should by array!`)
         }
         condition = this.getNotInCondition(this.data.conditions.$or?.$nin)
@@ -355,7 +355,7 @@ export class Statement {
       if (conditionKey === '$between') {
         condition = this.getBetweenCondition(this.data.conditions.$or?.$between);
       }
-      
+
       this.setCondition(this.getOrCondition(condition));
     });
   }
