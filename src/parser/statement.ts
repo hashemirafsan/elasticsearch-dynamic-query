@@ -110,6 +110,7 @@ export class Statement {
   private getEqCondition(data?: any) {
       return new Eq(this.getKey(), data);
   }
+  
   /**
    * If the data type is ID or Number, then add an Eq condition to the conditions array. If the data
    * type is Text, then add a Like condition to the conditions array
@@ -124,9 +125,15 @@ export class Statement {
     }
   }
 
+  /**
+   * It creates a new instance of the Neq class.
+   * @param {any} [data] - The data to compare to.
+   * @returns A Neq object.
+   */
   private getNotEqCondition(data?: any) {
     return new Neq(this.getKey(), data);
- }
+  }
+
   /**
    * If the data type is ID or Number, then add a new Neq condition to the conditions array. If the
    * data type is Text, then add a new NotLike condition to the conditions array
@@ -141,6 +148,11 @@ export class Statement {
     }
   }
 
+  /**
+   * It creates a Like object with the key and data.
+   * @param {any} data - The data to be used in the LIKE condition.
+   * @returns The Like object.
+   */
   private getLikeCondition(data: any) {
     return new Like(this.getKey(), data);
   }
@@ -154,6 +166,11 @@ export class Statement {
     this.setCondition(like);
   }
 
+  /**
+   * It creates a NotLike condition.
+   * @param {any} data - The data to be compared with the column value.
+   * @returns The NotLike class.
+   */
   private getNotLikeCondition(data: any) {
     return new NotLike(this.getKey(), data);
   }
@@ -167,6 +184,11 @@ export class Statement {
     this.setCondition(notLike);
   }
  
+  /**
+   * Given a data object, return a new In condition
+   * @param {any} data - any
+   * @returns An instance of the In class.
+   */
   private getInCondition(data: any) {
     return new In(this.getKey(), data);
   }
@@ -178,10 +200,15 @@ export class Statement {
     if (this.getType() !== DataTypeEnum.ARRAY || ! Array.isArray(this.data.conditions.$in)) {
         throw new DataTypeError(`field:${this.getKey()} data type should by array!`)
     }
-    const inC = this.getInCondition(this.data.conditions.$in);
-    this.setCondition(inC);
+    const inCondition = this.getInCondition(this.data.conditions.$in);
+    this.setCondition(inCondition);
   }
 
+  /**
+   * It creates a NotIn condition.
+   * @param {any} data - any
+   * @returns A NotIn object.
+   */
   private getNotInCondition(data: any) {
     return new NotIn(this.getKey(), data);
   }
@@ -194,6 +221,11 @@ export class Statement {
     this.setCondition(notIn);
   }
 
+  /**
+   * It creates a Lt object.
+   * @param {any} data - The data to be compared with the key.
+   * @returns An Lt object.
+   */
   private getLtCondition(data: any) {
     return new Lt(this.getKey(), data);
   }
@@ -206,6 +238,11 @@ export class Statement {
     this.setCondition(lt);
   }
 
+  /**
+   * It creates a new Lte object.
+   * @param {any} data - The data to be compared against.
+   * @returns The Lte class.
+   */
   private getLteCondition(data: any) {
     return new Lte(this.getKey(), data);
   }
@@ -218,6 +255,11 @@ export class Statement {
     this.setCondition(lte);
   }
 
+  /**
+   * It creates a new Gt object.
+   * @param {any} data - The data to compare to.
+   * @returns The Gt class.
+   */
   private getGtCondition(data: any) {
     return new Gt(this.getKey(), data);
   }
@@ -230,6 +272,11 @@ export class Statement {
     this.setCondition(gt);
   }
 
+  /**
+   * It creates a new Gte object.
+   * @param {any} data - The data to be compared against.
+   * @returns The Gte class.
+   */
   private getGteCondition(data: any) {
     return new Gte(this.getKey(), data);
   }
@@ -242,6 +289,11 @@ export class Statement {
     this.setCondition(gte);
   }
 
+  /**
+   * It returns a Between object.
+   * @param {any} data - The data to be used in the condition.
+   * @returns An instance of the Between class.
+   */
   private getBetweenCondition(data: any) {
     return new Between(this.getKey(), data)
   }
@@ -254,9 +306,15 @@ export class Statement {
     this.setCondition(between);
   }
 
+  /**
+   * Given a data object, return a condition that checks if the key exists in the data object
+   * @param {any} data - The data to be used in the condition.
+   * @returns An Exists object.
+   */
   private getExistsCondition(data: any) {
     return new Exists(this.getKey(), data)
   }
+
   /**
    * It sets the exists condition.
    */
@@ -265,6 +323,10 @@ export class Statement {
     this.setCondition(exists);
   }
 
+  /**
+   * Add a condition to the list of conditions
+   * @param {any} data - any
+   */
   private setCondition(data: any) {
     this.condtions.push(data);
   }
@@ -281,10 +343,20 @@ export class Statement {
     this.condtions.push(new Regex(this.getKey(), this.data.conditions.$regex));
   }
 
+  /**
+   * It creates an Or condition.
+   * @param {any} data - The data to be used in the condition.
+   * @returns An Or object.
+   */
   private getOrCondition(data: any) {
       return new Or(this.getKey(), data);
   }
 
+  /**
+   * - If the field has no conditions, throw an error.
+   * - If the field has a condition, set the condition.
+   * - If the field has an or condition, set the or condition
+   */
   private setOrCondition() {
     const conditionKVs = Object.keys(this.data.conditions.$or ?? []);
     if (! conditionKVs.length) {
