@@ -4,8 +4,8 @@
 name: Publish package
 
 on:
-  release:
-    types: [published]
+  push:
+    branches: [release] 
 
 jobs:
   publish-package:
@@ -26,9 +26,6 @@ jobs:
 
       - name: Format package
         run: npm run format
-
-      - name: Check version
-        run: npm version ${{ github.event.release.tag_name }}
 
       - name: Build Package
         run: npm run build
