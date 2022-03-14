@@ -11,18 +11,15 @@ jobs:
   publish-package:
     name: Publish package elasitcsearch-dynamic-query
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
-        
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       
-      - name: Install Node.js ${{ matrix.node-version }}
+      - name: Install Node.js 14.x
         uses: actions/setup-node@v2
         with:
-          node-version: matrix.node-version
+          node-version: 14.x
       
       - name: Format package
         run: npm run format
