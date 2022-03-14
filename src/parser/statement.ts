@@ -116,7 +116,7 @@ export class Statement {
    * type is Text, then add a Like condition to the conditions array
    */
   private setEqCondition() {
-    if (this.getType() === DataTypeEnum.ID || this.getType() === DataTypeEnum.NUMBER) {
+    if ([DataTypeEnum.ID, DataTypeEnum.NUMBER, DataTypeEnum.BOOLEAN].includes(this.getType())) {
       this.setCondition(this.getEqCondition(this.data.conditions.$eq));
     }
 
@@ -139,7 +139,7 @@ export class Statement {
    * data type is Text, then add a new NotLike condition to the conditions array
    */
   private setNotEqCondition() {
-    if (this.getType() === DataTypeEnum.ID || this.getType() === DataTypeEnum.NUMBER) {
+    if ([DataTypeEnum.ID, DataTypeEnum.NUMBER, DataTypeEnum.BOOLEAN].includes(this.getType())) {
       this.condtions.push(new Neq(this.getKey(), this.data.conditions.$neq));
     }
 
@@ -367,7 +367,7 @@ export class Statement {
       let condition = null;
 
       if (conditionKey === '$eq') {
-        if (this.getType() === DataTypeEnum.ID || this.getType() === DataTypeEnum.NUMBER) {
+        if ([DataTypeEnum.ID, DataTypeEnum.NUMBER, DataTypeEnum.BOOLEAN].includes(this.getType())) {
             condition = this.getEqCondition(this.data.conditions.$or?.$eq)
         }
     
@@ -377,7 +377,7 @@ export class Statement {
       }
 
       if (conditionKey === '$neq') {
-        if (this.getType() === DataTypeEnum.ID || this.getType() === DataTypeEnum.NUMBER) {
+        if ([DataTypeEnum.ID, DataTypeEnum.NUMBER, DataTypeEnum.BOOLEAN].includes(this.getType())) {
             condition = this.getNotEqCondition(this.data.conditions.$or?.$eq)
         }
     
