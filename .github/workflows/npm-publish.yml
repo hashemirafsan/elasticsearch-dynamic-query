@@ -1,0 +1,40 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
+
+name: Publish package
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish-package:
+    name: Publish package elasitcsearch-dynamic-query
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+        
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: matrix.node-version
+      
+      - name: Format package
+        run: npm run format
+
+      - name: Check version
+        run: npm version ${{ github.event.release.tag_name }}
+
+      - name: Build Package
+        run: npm run build
+
+      - name: Add .npmrc 
+        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+      
+      - name: Publish into npm registry
+        run: npm publish

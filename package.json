@@ -6,14 +6,15 @@
   "types": "lib/index.d.ts",
   "module": "lib/index.mjs",
   "scripts": {
-    "build": "rollup -c",
+    "clean": "rm -rf lib/",
+    "build": "npm run clean && rollup -c",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "test": "jest --config jestconfig.json --detectOpenHandles --unhandled-rejections=strict",
     "test:docker": "docker-compose --file ./.docker/docker-compose.yml up --abort-on-container-exit --exit-code-from es-dynamic-query",
     "posttest:docker": "docker-compose --file ./.docker/docker-compose.yml down --volumes --remove-orphans",
     "prepare": "npm run build",
-    "prepublishOnly": "npm run test:docker && npm run lint",
+    "prepublishOnly": "npm run build && npm run test && npm run lint",
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags"
