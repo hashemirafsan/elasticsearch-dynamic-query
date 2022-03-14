@@ -20,6 +20,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.x
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependency
         run: npm install
@@ -30,8 +31,7 @@ jobs:
       - name: Build Package
         run: npm run build
 
-      - name: Add .npmrc 
-        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-      
       - name: Publish into npm registry
         run: npm publish
+        env: 
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
