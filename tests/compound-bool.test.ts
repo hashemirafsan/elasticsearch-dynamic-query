@@ -1,7 +1,5 @@
 import { ElasticSearchDynamicQuery } from '../lib/index';
-import { DataTypeEnum } from '../lib/parser/enum';
-import { EmptyConditionError } from '../lib/exceptions/EmptyConditionError';
-import { DataTypeError } from '../lib/exceptions/DataTypeError';
+import { DataTypeEnum } from '../src/parser/enum';
 import { faker } from '@faker-js/faker';
 
 test('$eq (TEXT) Conditional Operator', async () => {
@@ -619,7 +617,7 @@ test('Data Type Error (Array)', async () => {
         const builder = new ElasticSearchDynamicQuery(command);
         return builder.compoundQuery().build()
     };
-    expect(query).toThrow(DataTypeError);
+    expect(query).toThrow("field:release_year data type should by array!");
 });
 
 test('Empty Condition Error', async () => {
@@ -642,7 +640,7 @@ test('Empty Condition Error', async () => {
         return builder.compoundQuery().build()
     };
 
-    expect(query).toThrow(EmptyConditionError)
+    expect(query).toThrow("title has no valid conditions!")
 });
 
 test('$or Conditional Operator', async () => {

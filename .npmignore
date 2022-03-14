@@ -7,3 +7,5 @@ tslint.json
 .prettierrc
 .docker
 examples/
+rollup.config.ts
+pnpm-lock.yaml
