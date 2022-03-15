@@ -601,48 +601,6 @@ test('$exists Not Field Conditional Operator', async () => {
     });
 });
 
-test('Data Type Error (Array)', async () => {
-    const query = () => {
-        const releaseYears = [2021, 2025];
-
-        const command = {
-            release_year: {
-                type: DataTypeEnum.TEXT,
-                conditions: {
-                    $in: releaseYears
-                }
-            }
-        }
-
-        const builder = new ElasticSearchDynamicQuery(command);
-        return builder.compoundQuery().build()
-    };
-    expect(query).toThrow("field:release_year data type should by array!");
-});
-
-test('Empty Condition Error', async () => {
-    const query = () => {
-        const releaseYear = 2020;
-
-        const command = {
-            title: {
-                type: DataTypeEnum.TEXT,
-                conditions: {}
-            },
-            release_year: {
-                type: DataTypeEnum.NUMBER,
-                conditions: {
-                    $eq: releaseYear
-                }
-            }
-        }
-        const builder = new ElasticSearchDynamicQuery(command);
-        return builder.compoundQuery().build()
-    };
-
-    expect(query).toThrow("title has no valid conditions!")
-});
-
 test('$or Conditional Operator', async () => {
     const title = faker.lorem.word(2);
     const releaseYear = 2020;
@@ -736,6 +694,104 @@ test('$or (Partial) Conditional Operator', async () => {
                 {
                     terms: {
                         launch_year: launchYears
+                    }
+                }
+            ]
+        }
+    });
+});
+
+test('Data Type Error (Array)', async () => {
+    const query = () => {
+        const releaseYears = [2021, 2025];
+
+        const command = {
+            release_year: {
+                type: DataTypeEnum.TEXT,
+                conditions: {
+                    $in: releaseYears
+                }
+            }
+        }
+
+        const builder = new ElasticSearchDynamicQuery(command);
+        return builder.compoundQuery().build()
+    };
+    expect(query).toThrow("field:release_year data type should by array!");
+});
+
+test('Empty Condition Error', async () => {
+    const query = () => {
+        const releaseYear = 2020;
+
+        const command = {
+            title: {
+                type: DataTypeEnum.TEXT,
+                conditions: {}
+            },
+            release_year: {
+                type: DataTypeEnum.NUMBER,
+                conditions: {
+                    $eq: releaseYear
+                }
+            }
+        }
+        const builder = new ElasticSearchDynamicQuery(command);
+        return builder.compoundQuery().build()
+    };
+
+    expect(query).toThrow("title has no valid conditions!")
+});
+
+test('Multi Conditional Operator (1)', async () => {
+    const title = faker.lorem.word(2);
+    const anotherTitle = faker.lorem.word(3);
+
+    const releaseYear = 2022;
+    const anotherReleaseYear = 2023;
+
+    const command = {
+        title: {
+            type: DataTypeEnum.TEXT,
+            conditions: {
+                $eq: title,
+                $neq: anotherTitle
+            }
+        },
+        release_year: {
+            type: DataTypeEnum.NUMBER,
+            conditions: {
+                $eq: releaseYear,
+                $neq: anotherReleaseYear
+            }
+        }
+    }
+
+    const builder = new ElasticSearchDynamicQuery(command);
+    const query = builder.compoundQuery().build();
+    expect(query).toStrictEqual({
+        bool: {
+            must: [
+                {
+                    match: {
+                        title: title
+                    }
+                },
+                {
+                    term: {
+                        release_year: releaseYear
+                    }
+                }
+            ],
+            must_not: [
+                {
+                    match: {
+                        title: anotherTitle
+                    }
+                },
+                {
+                    term: {
+                        release_year: anotherReleaseYear
                     }
                 }
             ]
