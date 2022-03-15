@@ -1,8 +1,8 @@
-import { Or } from '../../parser/condtions/Or';
-import { Between, Eq, Exists, Gt, Gte, In, Like, Lt, Lte, Neq, NotIn, NotLike, Regex } from '../../parser/condtions/_index';
+import { Between, Eq, Exists, Gt, Gte, In, Like, Lt, Lte, Neq, NotIn, NotLike, Regex, Or } from '../../parser/condtions/_index';
 import { Statement } from '../../parser/statement';
 import { BoolQuery } from './bool.query';
 import { CompoundQueryType } from './enum';
+import { ICompoundBoolQuery } from './interface';
 
 export class CompoundQuery {
   private statements: Statement[] = [];
@@ -15,9 +15,9 @@ export class CompoundQuery {
 
   /**
    * It builds a query for Elasticsearch.
-   * @returns The query that will be used to search the index.
+   * @returns The query that is being built.
    */
-  private boolBuildQuery() {
+  private boolBuildQuery(): ICompoundBoolQuery {
     const boolQuery = new BoolQuery();
 
     this.statements.forEach((statement) => {

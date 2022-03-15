@@ -11,6 +11,7 @@ import { Neq } from "./Neq";
 import { NotIn } from "./NotIn";
 import { NotLike } from "./NotLike";
 import { Regex } from "./Regex";
+import { Or } from "./Or";
 
 export {
     Between,
@@ -25,5 +26,6 @@ export {
     Neq,
     NotIn,
     NotLike,
-    Regex
+    Regex,
+    Or
 }

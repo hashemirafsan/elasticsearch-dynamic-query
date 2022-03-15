@@ -46,7 +46,7 @@ export class Statement {
   /**
    * For each key in the conditions object, check the key and call the appropriate function
    */
-  private build() {
+  private build(): void {
     const conditionKVs = Object.keys(this.data.conditions);
     if (! conditionKVs.length) {
         throw new EmptyConditionError(`${this.getKey()} has no valid conditions!`)

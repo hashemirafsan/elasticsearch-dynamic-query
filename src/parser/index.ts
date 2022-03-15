@@ -20,7 +20,7 @@ export class Parser {
   /**
    * It parses the command object and creates a Statement object for each command.
    */
-  public parse() {
+  public parse(): void {
     Object.keys(this.command).forEach((key: string) => {
       if (this.isReservedKey(key)) throw new Error('Reserved key is used as command!');
 

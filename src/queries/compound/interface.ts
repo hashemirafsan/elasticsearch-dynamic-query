@@ -7,3 +7,7 @@ export interface IBoolQuery {
   [ElasticOccurEnum.SHOULD]?: any[];
   [ElasticOccurEnum.FILTER]?: any[];
 }
+
+export interface ICompoundBoolQuery {
+  bool: IBoolQuery
+}

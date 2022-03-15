@@ -1,4 +1,5 @@
 import { DataTypeEnum } from './enum';
+
 /* This is a type definition for a range condition. */
 export interface IRangeCondition {
   $lt?: string | number;
@@ -7,6 +8,7 @@ export interface IRangeCondition {
   $gte?: string | number;
 }
 
+/* It's a type definition for a conditional operator. */
 export interface IConditionalOperator {
   $eq?: any;
   $neq?: any;
