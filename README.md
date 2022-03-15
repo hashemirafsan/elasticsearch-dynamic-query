@@ -59,6 +59,7 @@ export enum DataTypeEnum {
   NUMBER = 'NUMBER',
   ARRAY = 'ARRAY',
   DATETIME = 'DATETIME',
+  BOOLEAN = 'BOOLEAN',
 }
 ```
 #### Conditonal Operator
