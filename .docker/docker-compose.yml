@@ -8,6 +8,4 @@ services:
       dockerfile: Dockerfile.test
     volumes:
       - ../:/usr/src/app
-    depends_on:
-      - redis
     command: npm run test

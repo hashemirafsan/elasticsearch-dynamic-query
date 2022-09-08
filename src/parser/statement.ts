@@ -116,13 +116,7 @@ export class Statement {
    * type is Text, then add a Like condition to the conditions array
    */
   private setEqCondition() {
-    if ([DataTypeEnum.ID, DataTypeEnum.NUMBER, DataTypeEnum.BOOLEAN].includes(this.getType())) {
-      this.setCondition(this.getEqCondition(this.data.conditions.$eq));
-    }
-
-    if (this.getType() === DataTypeEnum.TEXT) {
-      this.setLikeCondition(this.data.conditions.$eq);
-    }
+    this.setCondition(this.getEqCondition(this.data.conditions.$eq));
   }
 
   /**
@@ -139,13 +133,7 @@ export class Statement {
    * data type is Text, then add a new NotLike condition to the conditions array
    */
   private setNotEqCondition() {
-    if ([DataTypeEnum.ID, DataTypeEnum.NUMBER, DataTypeEnum.BOOLEAN].includes(this.getType())) {
-      this.condtions.push(new Neq(this.getKey(), this.data.conditions.$neq));
-    }
-
-    if (this.getType() === DataTypeEnum.TEXT) {
-      this.setNotLikeCondition(this.data.conditions.$neq);
-    }
+    this.condtions.push(new Neq(this.getKey(), this.data.conditions.$neq));
   }
 
   /**

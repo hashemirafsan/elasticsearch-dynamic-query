@@ -20,7 +20,7 @@ test('$eq (TEXT) Conditional Operator', async () => {
         bool: {
             must: [
                 {
-                    match: {
+                    term: {
                         title: title
                     }
                 }
@@ -74,7 +74,7 @@ test('$neq (TEXT) Conditional Operator', async () => {
         bool: {
             must_not: [
                 {
-                    match: {
+                    term: {
                         title: title
                     }
                 }
@@ -680,7 +680,7 @@ test('$or (Partial) Conditional Operator', async () => {
         bool: {
             must: [
                 {
-                    match: {
+                    term: {
                         title: title
                     }
                 }
@@ -773,7 +773,7 @@ test('Multi Conditional Operator (1)', async () => {
         bool: {
             must: [
                 {
-                    match: {
+                    term: {
                         title: title
                     }
                 },
@@ -785,7 +785,7 @@ test('Multi Conditional Operator (1)', async () => {
             ],
             must_not: [
                 {
-                    match: {
+                    term: {
                         title: anotherTitle
                     }
                 },
